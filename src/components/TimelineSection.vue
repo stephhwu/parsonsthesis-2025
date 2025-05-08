@@ -44,6 +44,15 @@ import { onMounted, ref, onBeforeUnmount, computed } from 'vue';
 import { gsap } from 'gsap';
 import { Draggable } from 'gsap/Draggable';
 
+// Import all timeline images
+import timeline1 from '@/assets/images/timeline/timeline-1.jpg';
+import timeline2 from '@/assets/images/timeline/timeline-2.jpg';
+import timeline3 from '@/assets/images/timeline/timeline-3.jpg';
+import timeline4 from '@/assets/images/timeline/timeline-4.jpg';
+import timeline5 from '@/assetsimages/timeline/timeline-5.jpg';
+import timeline6 from '@/assets/images/timeline/timeline-6.jpg';
+import timeline7 from '@/assets/images/timeline/timeline-7.jpg';
+
 // Register the Draggable plugin
 gsap.registerPlugin(Draggable);
 
@@ -68,51 +77,49 @@ export default {
     const currentIndex = ref(0);
     
     const timelineItems = [
-  {
-    year: '30,000–15,000 BCE',
-    image: '@/assets/images/timeline/timeline-1.jpg',
-    heading: 'Prehistoric Mutualism',
-    caption: 'Wolves and humans share overlapping hunting grounds, gradually adjusting behaviors in response to one another. This isn’t top-down domestication — it’s co-evolution. Wolves benefit from food scraps; humans gain early warning systems.',
-  },
-  {
-    year: '15,000–8,000 BCE',
-    image: '@/assets/images/timeline/timeline-2.jpg',
-    heading: 'Emergent Companionship',
-    caption: 'In ancient cultures across the world — from Siberia to the Americas — dogs begin appearing in graves, often with signs of care and ritual. This marks a shift from utility to emotional and symbolic partnership.',
-  },
-  {
-    year: '8,000–3,000 BCE',
-    image: '@/assets/images/timeline/timeline-3.jpg',
-    heading: 'Agricultural Integration',
-    caption: 'As humans settle into agrarian life, dogs adapt too. Roles like herding, guarding, and hunting emerge in societies across Europe, the Middle East, and Central Asia. These aren’t just tasks — they’re shared infrastructures of survival.',
-  },
-  {
-    year: '3,000 BCE–500 CE',
-    image: '@/assets/images/timeline/timeline-4.jpg',
-    heading: 'Symbolic & Spiritual Dogs',
-    caption: 'Dogs appear in myths, art, and religious rituals across cultures: Anubis in Egypt, Xolotl in Mesoamerica, the hounds of Hecate in Greece, and hunting dogs in Roman society. They transcend utility, becoming symbolic figures in life, death, and spiritual journeys. ',
-  },
-  {
-    year: '500–1500 CE',
-    image: '@/assets/images/timeline/timeline-5.jpg',
-    heading: 'Medieval Multiplicity',
-    caption: 'Dogs play diverse roles worldwide — from hunting in Europe to ratting in Asia and working in Africa. No longer just laborers, they are now companions: named, loved, and mourned.',
-  },
-  {
-    year: '1500–1900 CE',
-    image: '@/assets/images/timeline/timeline-6.jpg',
-    heading: 'Breeding & Control',
-    caption: 'During the colonial period and Enlightenment, dog breeding becomes formalized in Europe, and breeds like the Greyhound, Mastiff, and Terriers gain prominence. Dogs are bred for specific roles or statuses.',
-  },
-  {
-    year: '1900–Present',
-    image: '@/assets/images/timeline/timeline-7.jpg',
-    heading: 'Companion Species Now',
-    caption: 'Dogs are family, helpers, and healers. From guiding the blind to aiding police and conservationists, they shape societies worldwide. Emotionally attuned, studies have shown that our bonds releases oxytocin in both species.',
-  }
-];
-
-
+      {
+        year: '30,000–15,000 BCE',
+        image: timeline1,
+        heading: 'Prehistoric Mutualism',
+        caption: 'Wolves and humans share overlapping hunting grounds, gradually adjusting behaviors in response to one another. This isn’t top-down domestication — it’s co-evolution. Wolves benefit from food scraps; humans gain early warning systems.',
+      },
+      {
+        year: '15,000–8,000 BCE',
+        image: timeline2,
+        heading: 'Emergent Companionship',
+        caption: 'In ancient cultures across the world — from Siberia to the Americas — dogs begin appearing in graves, often with signs of care and ritual. This marks a shift from utility to emotional and symbolic partnership.',
+      },
+      {
+        year: '8,000–3,000 BCE',
+        image: timeline3,
+        heading: 'Agricultural Integration',
+        caption: 'As humans settle into agrarian life, dogs adapt too. Roles like herding, guarding, and hunting emerge in societies across Europe, the Middle East, and Central Asia. These aren’t just tasks — they’re shared infrastructures of survival.',
+      },
+      {
+        year: '3,000 BCE–500 CE',
+        image: timeline4,
+        heading: 'Symbolic & Spiritual Dogs',
+        caption: 'Dogs appear in myths, art, and religious rituals across cultures: Anubis in Egypt, Xolotl in Mesoamerica, the hounds of Hecate in Greece, and hunting dogs in Roman society. They transcend utility, becoming symbolic figures in life, death, and spiritual journeys. ',
+      },
+      {
+        year: '500–1500 CE',
+        image: timeline5,
+        heading: 'Medieval Multiplicity',
+        caption: 'Dogs play diverse roles worldwide — from hunting in Europe to ratting in Asia and working in Africa. No longer just laborers, they are now companions: named, loved, and mourned.',
+      },
+      {
+        year: '1500–1900 CE',
+        image: timeline6,
+        heading: 'Breeding & Control',
+        caption: 'During the colonial period and Enlightenment, dog breeding becomes formalized in Europe, and breeds like the Greyhound, Mastiff, and Terriers gain prominence. Dogs are bred for specific roles or statuses.',
+      },
+      {
+        year: '1900–Present',
+        image: timeline7,
+        heading: 'Companion Species Now',
+        caption: 'Dogs are family, helpers, and healers. From guiding the blind to aiding police and conservationists, they shape societies worldwide. Emotionally attuned, studies have shown that our bonds releases oxytocin in both species.',
+      }
+    ];
 
     // Computed property for current year based on index
     const currentYear = computed(() => {
