@@ -49,7 +49,7 @@ import timeline1 from '@/assets/images/timeline/timeline-1.jpg';
 import timeline2 from '@/assets/images/timeline/timeline-2.jpg';
 import timeline3 from '@/assets/images/timeline/timeline-3.jpg';
 import timeline4 from '@/assets/images/timeline/timeline-4.jpg';
-import timeline5 from '@/assetsimages/timeline/timeline-5.jpg';
+import timeline5 from '@/assets/images/timeline/timeline-5.jpg';
 import timeline6 from '@/assets/images/timeline/timeline-6.jpg';
 import timeline7 from '@/assets/images/timeline/timeline-7.jpg';
 
