@@ -57,9 +57,7 @@
         </div>
         
         <div class="footnotes">
-        <p class="footnote footnote-dagger">†This price estimate comes from prior use of medical scent canines used in research for detecting coronavirus disease 2019 (COVID-19).</p>
-        <p class="footnote footnote-asterisk">*The paper compares findings from four studies on dogs' ability to detect lung cancer (McCulloch et al. 2006, Ehmann et al. 2011, Junqueira et al. 2019, Fjellanger et al. 2022)</p>
-      </div>
+          <p class="footnote footnote-dagger">†This price estimate comes from prior use of medical scent canines used in <a href="https://www.frontiersin.org/journals/medicine/articles/10.3389/fmed.2022.1006315/full" target="_blank" rel="noopener noreferrer">research for detecting coronavirus disease 2019 (COVID-19)</a>.</p>        <p class="footnote footnote-asterisk">*The paper compares findings from four studies on dogs' ability to detect lung cancer (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10257358/" target="_blank" rel="noopener noreferrer">McCulloch et al. 2006, Ehmann et al. 2011, Junqueira et al. 2019, Fjellanger et al. 2022)</a></p>      </div>
       </div>
     </div>
   </div>
@@ -351,6 +349,18 @@ font-style: normal;  font-size: 18px;
   position: relative; /* Add this to ensure proper stacking */
   width: 100%; /* Ensure full width */
 }
+
+.footnote a {
+  color: #666666;
+  text-decoration: none;
+  border-bottom: 1px dotted #999999;
+  transition: color 0.2s ease;
+}
+
+.footnote a:hover {
+  color: #333333;
+}
+
 @media (max-width: 768px) {
   .main-title {
     font-size: 40px;

@@ -638,18 +638,17 @@ line-height: normal;
   padding: 2px 8px;
   border-radius: 6px;
   margin-right: 20px;
-  pointer-events: none;
 }
 
-/* Add to your existing source style or create new */
 .source a {
-  color: inherit; /* Maintain the same color */
-  text-decoration: none; /* Remove default underline */
-  transition: text-decoration 0.2s;
+  color: #666666;
+  text-decoration: none;
+  border-bottom: 1px dotted #999999;
+  transition: color 0.2s ease;
 }
 
 .source a:hover {
-  text-decoration: underline; /* Show underline on hover */
+  text-decoration: underline;
 }
 
 /* Media queries for responsiveness */

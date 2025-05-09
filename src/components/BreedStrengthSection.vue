@@ -25,8 +25,7 @@
       
       <div class="chart-container" ref="chartContainerElement">
         <div id="radar-chart" ref="radarChart"></div>
-        <div class="chart-source">Source: American Kennel Club</div>
-      </div>
+        <div class="chart-source">Source: <a href="https://www.akc.org/dog-breeds/" target="_blank" rel="noopener noreferrer">American Kennel Club</a></div>      </div>
     </div>
   </div>
 </template>
@@ -919,6 +918,21 @@ font-weight: 400;
   background: transparent;
   pointer-events: none;
   z-index: 2;
+}
+
+.chart-source a {
+  color: inherit;
+  text-decoration: none;
+  pointer-events: auto;
+  transition: text-decoration 0.2s;
+  color: #666666;
+  text-decoration: none;
+  border-bottom: 1px dotted #999999;
+  transition: color 0.2s ease;
+}
+
+.chart-source a:hover {
+  text-decoration: underline;
 }
 
 /* Add these styles instead */

@@ -615,14 +615,17 @@ svg {
 /* Source Styles */
 .source {
   font-size: 11px;
-  color: #999;
-  margin-top: 30px;
+  color: #A2A2A2;
+  font-family: "Neue Haas Grotesk Display Pro";
+  font-size: 12px;  margin-top: 30px;
   text-align: center;
 }
 
 .source a {
-  color: #777;
+  color: #666666;
   text-decoration: none;
+  border-bottom: 1px dotted #999999;
+  transition: color 0.2s ease;
 }
 
 .source a:hover {
@@ -767,7 +770,7 @@ svg {
 }
 
 .dog-wrapper:has(.sugar) {
-  top: 30%;
+  top: 25%;
   left: -3%;
 }
 
@@ -778,7 +781,7 @@ svg {
 }
 
 .dog-wrapper:has(.finn) {
-  top: 30%;
+  top: 25%;
   right: -3%;
 }
 
@@ -801,7 +804,7 @@ svg {
 .daisy-tooltip {
   position: absolute;
   right: 130%; /* Position to the right of the image */
-  top: 5%;
+  top: -5%;
   width: 400px;
   z-index: 100;
 }
