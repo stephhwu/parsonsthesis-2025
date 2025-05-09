@@ -204,19 +204,30 @@ export default {
           display: 'none'
         });
         
-        // Make medium and max dogs visible
+        // Make medium and max dogs visible first
         gsap.set(['.medium-dog', '.max-dog'], {
           display: 'block'
         });
         
-        // Animate both medium and max dogs
-        gsap.to(['.medium-dog', '.max-dog'], {
+        // Create an animation timeline
+        const tl = gsap.timeline();
+        
+        // Animate setting-8.png immediately (max-dog:nth-of-type(8))
+        tl.to('.max-dog:nth-of-type(8)', {
+          opacity: 1,
+          scale: 1,
+          duration: 0.6,
+          ease: "elastic.out(1, 0.3)"
+        }, 0);
+        
+        // Animate all other medium and max dogs with stagger
+        tl.to(['.medium-dog', '.max-dog:not(:nth-of-type(8))'], {
           opacity: 1,
           scale: 1,
           duration: 0.6,
           stagger: 0.1,
           ease: "elastic.out(1, 0.3)"
-        });
+        }, 0);
       }
     }
   },
@@ -608,7 +619,7 @@ export default {
   width: 400px;
   height: 400px;
   left: -2%;
-  bottom: -4%;
+  bottom: 0%;
 }
 
 .decorative-dogs.medium .medium-dog:nth-of-type(3) {
@@ -649,7 +660,7 @@ export default {
   width: 400px;
   height: 400px;
   left: -2%;
-  bottom: -4%;
+  bottom: 0%;
 }
 
 .decorative-dogs.maximum .medium-dog:nth-of-type(3) {
@@ -723,12 +734,24 @@ export default {
   z-index: 20; /* setting-5.png - third */
 }
 
+.decorative-dogs .max-dog:nth-of-type(7) {
+  z-index: 16; /* setting-7.png - add this to place it above setting-4.png */
+}
+
+.decorative-dogs .medium-dog:nth-of-type(4) {
+  z-index: 15; /* setting-4.png */
+}
+
+.decorative-dogs .max-dog:nth-of-type(6) {
+  z-index: 4; /* setting-6.png - give it a lower z-index than default */
+}
+
 .decorative-dogs .max-dog:nth-of-type(9) {
   z-index: 10; /* setting-9.png - backmost */
 }
 
 /* Ensure other images don't interfere with this stacking order */
-.decorative-dogs .dog-image:not(.medium-dog:nth-of-type(2)):not(.max-dog:nth-of-type(8)):not(.medium-dog:nth-of-type(5)):not(.max-dog:nth-of-type(9)) {
+.decorative-dogs .dog-image:not(.medium-dog:nth-of-type(2)):not(.max-dog:nth-of-type(8)):not(.medium-dog:nth-of-type(5)):not(.medium-dog:nth-of-type(4)):not(.max-dog:nth-of-type(6)):not(.max-dog:nth-of-type(9)):not(.max-dog:nth-of-type(7)) {
   z-index: 5;
 }
 

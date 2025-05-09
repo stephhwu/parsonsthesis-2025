@@ -782,6 +782,7 @@ export default {
   scroll-snap-align: start; /* For section scrolling */
   scroll-snap-stop: always;
   margin-bottom: 5vh;
+  
 }
 
 .filters {
@@ -790,6 +791,8 @@ export default {
   gap: 10px;
   margin-bottom: 40px;
   margin-top: 40px;
+  position: relative;
+  z-index: 150; /* Higher than the nav's z-index */
 }
 
 .filter-button {
@@ -803,6 +806,8 @@ export default {
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
+  position: relative; /* Add this */
+  z-index: 150; /* Add this - higher than nav's z-index */
 }
 
 

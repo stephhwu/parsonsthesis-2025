@@ -212,8 +212,8 @@ export default {
       // Make nav fixed when the section is in view
       const navTrigger = ScrollTrigger.create({
         trigger: ".gsap-section",
-        start: "top 10%", // When top of section is 10% from viewport top
-        end: "bottom 10%", // When bottom of section is 10% from viewport bottom
+        start: "top top", // Only start when OutroSection is at the top
+        end: "bottom bottom",
         onEnter: () => {
           gsap.to(".gsap-section nav", {
             position: "fixed",
@@ -663,6 +663,7 @@ export default {
   opacity: 0;
   text-align: center;
   z-index: 100;
+  visibility: hidden; /* Add this to hide it initially */
 }
 
 
