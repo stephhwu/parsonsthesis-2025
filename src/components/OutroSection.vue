@@ -155,7 +155,7 @@
           <img src="@/assets/images/conclusion/conclusion-7.png" alt="Dog" class="dog-image dog-8 max-only" />
         </div>
 
-        <h1>These aren't just good boys & girls, they co-evolved with us and challenge our idea of human exceptionalism. Dogs may just be the smartest partnership we've ever made as a species.<br><br> But maybe the real win wasn't teaching dogs to do these exceptional things, it was realizing we're better off with them around, even when they contribute absolutely nothing.</h1>
+        <h1>These aren't just good boys & girls, they co-evolved with us and challenge our idea of human exceptionalism. Dogs may just be the smartest partnership we've ever made as a species.<br><br>But maybe the real win wasn’t just in what we’ve accomplished together—it was in realizing we’re better off with dogs by our side, even when their greatest gift is simply their companionship.</h1>
       </section>
     </div>
   </div>
