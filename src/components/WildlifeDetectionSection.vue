@@ -89,7 +89,7 @@
 
       <div class="source">
         Source (adapted): Amor et al., iScience. 2024. Fig 2. <a href="https://doi.org/10.1016/j.isci.2024.109729" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.isci.2024.109729</a>
-        <br>Dog squad info: <a href="Fighting Extinction Dog Squad" target="_blank" rel="noopener noreferrer">https://www.zoo.org.au/fighting-extinction/fighting-extinction-dog-squad/</a>
+        <br>Dog squad info: <a href="https://www.zoo.org.au/fighting-extinction/fighting-extinction-dog-squad/np" target="_blank" rel="noopener noreferrer">https://www.zoo.org.au/fighting-extinction/fighting-extinction-dog-squad/</a>
       </div>
     </div>
   </div>
