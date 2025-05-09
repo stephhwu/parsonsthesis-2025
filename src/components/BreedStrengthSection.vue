@@ -851,7 +851,7 @@ font-weight: 400;
 .breed-role {
   margin-bottom: 5px;
   color: #F00;
-font-family: "IvyPresto Headline";
+  font-family: "ivypresto-headline", serif;
 font-size: 70px;
 font-style: italic;
 font-weight: 400;

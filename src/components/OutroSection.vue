@@ -219,26 +219,30 @@ export default {
             position: "fixed",
             top: "20px",
             opacity: 1,
+            visibility: "visible", // Add this line to make it visible
             duration: 0.3
           });
         },
         onLeave: () => {
           gsap.to(".gsap-section nav", {
             opacity: 0,
+            visibility: "hidden", // Add this to hide it completely
             duration: 0.3
           });
         },
         onEnterBack: () => {
           gsap.to(".gsap-section nav", {
-            position: "fixed",
+            position: "fixed", 
             top: "20px",
             opacity: 1,
+            visibility: "visible", // Add this line as well
             duration: 0.3
           });
         },
         onLeaveBack: () => {
           gsap.to(".gsap-section nav", {
             opacity: 0,
+            visibility: "hidden", // Add this to hide it completely
             duration: 0.3
           });
         }
