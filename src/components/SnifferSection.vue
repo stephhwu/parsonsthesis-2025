@@ -297,6 +297,13 @@ export default {
 </script>
 
 <style scoped>
+/* Add this new class definition */
+.ivy-italic {
+  font-family: ivypresto-headline, serif;
+  font-style: italic;
+  font-weight: 600;
+}
+
 .sniffer-section {
   position: relative;
   width: 100%;

@@ -1,5 +1,13 @@
 <template>
     <div class="wildlife-detection-section">
+      <!-- Add this decorative dogs container -->
+      <div class="decorative-dogs" :class="dogDisplayMode">
+        <img src="@/assets/images/kipp.png" alt="Kipp" class="dog-image kipp medium-dog" />
+        <img src="@/assets/images/moss.png" alt="Moss" class="dog-image moss medium-dog" />
+        <img src="@/assets/images/sugar.png" alt="Sugar" class="dog-image sugar medium-dog" />
+        <img src="@/assets/images/finn.png" alt="Finn" class="dog-image finn medium-dog" />
+      </div>
+      
       <div class="section-content">
         <h1 class="main-title">Wildlife Detection Effectiveness</h1>
         
@@ -32,18 +40,29 @@
   </template>
   
   <script>
-  import { ref, onMounted, onBeforeUnmount } from 'vue';
+  import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
   import * as d3 from 'd3';
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  import daisyImage from '@/assets/images/daisy.png'; // Import the image
+  import daisyImage from '@/assets/images/daisy.png';
+  import kippImage from '@/assets/images/kipp.png';
+  import mossImage from '@/assets/images/moss.png';
+  import sugarImage from '@/assets/images/sugar.png';
+  import finnImage from '@/assets/images/finn.png';
   
   // Ensure ScrollTrigger is registered (usually done globally, but good practice)
   gsap.registerPlugin(ScrollTrigger);
   
   export default {
     name: 'WildlifeDetectionSection',
-    setup() {
+    props: {
+      dogDisplayMode: {
+        type: String,
+        default: 'minimal',
+        validator: (value) => ['minimal', 'medium', 'maximum'].includes(value)
+      }
+    },
+    setup(props) {
       const chartContainer = ref(null);
       const svgChart = ref(null);
       let resizeObserver = null;
@@ -51,6 +70,9 @@
   
       const drawChart = () => {
         if (!chartContainer.value || !svgChart.value) return;
+
+        // Remove any existing tooltips before creating a new one
+        d3.select(chartContainer.value).selectAll(".tooltip").remove();
   
         // --- Data ---
         const dimensions = ["Proportion of Fungus Found", "Time to First Detection", "Probability of False Negative"];
@@ -171,10 +193,10 @@
           .style("stroke-dasharray", function() { return this.getTotalLength(); })
           .style("stroke-dashoffset", function() { return this.getTotalLength(); });
   
-        // Create a tooltip element
-        const tooltip = d3.select(chartContainer.value)
+        // Create a tooltip element attached to the body instead of the chart container
+        const tooltip = d3.select("body")
           .append("div")
-          .attr("class", "tooltip")
+          .attr("class", "wildlife-tooltip") // Use a more specific class name
           .style("position", "absolute")
           .style("background", "#fff")
           .style("border", "1px solid #ccc")
@@ -184,7 +206,8 @@
           .style("font-family", '"ivypresto-headline", serif')
           .style("box-shadow", "0 2px 4px rgba(0, 0, 0, 0.1)")
           .style("pointer-events", "none")
-          .style("opacity", 0);
+          .style("opacity", 0)
+          .style("z-index", "1000"); // Ensure tooltip is on top
   
         // Function to show tooltip with formatted values
         const showTooltip = (event, d, data, label) => {
@@ -306,9 +329,15 @@
           start: "top 70%", // Start animation when 70% of the chart is visible
           once: true, // Animate only once
           onEnter: () => {
-            gsap.to(".dog-line", { strokeDashoffset: 0, duration: 2, ease: "power1.inOut" });
-            gsap.to(".human-line", { strokeDashoffset: 0, duration: 2, ease: "power1.inOut", delay: 0.5 });
-            gsap.to(".data-point", { opacity: 1, duration: 0.5, stagger: 0.2, delay: 0.5 });
+            // Get direct references to the SVG elements
+            const dogLine = svgChart.value.querySelector(".dog-line");
+            const humanLine = svgChart.value.querySelector(".human-line");
+            const dataPoints = Array.from(svgChart.value.querySelectorAll(".data-point"));
+            
+            // Use GSAP with direct element references
+            gsap.to(dogLine, { strokeDashoffset: 0, duration: 2, ease: "power1.inOut" });
+            gsap.to(humanLine, { strokeDashoffset: 0, duration: 2, ease: "power1.inOut", delay: 0.5 });
+            gsap.to(dataPoints, { opacity: 1, duration: 0.5, stagger: 0.2, delay: 0.5 });
           }
         });
       };
@@ -331,7 +360,35 @@
         if (scrollTriggerInstance) {
           scrollTriggerInstance.kill();
         }
+        
+        // Remove any tooltips when component unmounts
+        d3.selectAll(".wildlife-tooltip").remove();
       });
+
+      // Watch for changes to dogDisplayMode
+      watch(() => props.dogDisplayMode, (newMode) => {
+        // Animate dogs based on mode change
+        if (newMode === 'minimal') {
+          // Hide all dogs
+          gsap.to('.dog-image', {
+            opacity: 0,
+            scale: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: 'power3.out'
+          });
+        } else {
+          // Show dogs with staggered animation
+          gsap.to('.medium-dog', {
+            opacity: 1,
+            scale: 1,
+            rotation: (index) => [10, -8, 12, -15][index % 4], // Random rotation for each dog
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'back.out(1.7)'
+          });
+        }
+      }, { immediate: true });
   
       return {
         chartContainer,
@@ -354,6 +411,7 @@
     scroll-snap-align: start;
     scroll-snap-stop: always;
     font-family: "ivypresto-headline", serif;
+    position: relative; /* Add this line */
   }
   
   .section-content {
@@ -497,6 +555,87 @@
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
     z-index: 1000; /* Ensure tooltip is on top */
+  }
+  
+  /* Decorative Dogs Styles */
+  .decorative-dogs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  .dog-image {
+    position: absolute;
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 0;
+    transform: scale(0);
+  }
+  
+  /* For minimal state - hide all decorative dogs */
+  .decorative-dogs.minimal .dog-image {
+    opacity: 0;
+    transform: scale(0);
+  }
+  
+  /* Medium and maximum states - show decorative dogs */
+  .decorative-dogs.medium .medium-dog,
+  .decorative-dogs.maximum .medium-dog {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  
+  /* Position the dogs */
+  .dog-image.kipp {
+    width: 300px;
+    height: 300px;
+    bottom: 25%;
+    right: -3%;
+    transform: rotate(8deg)!important;
+  }
+  
+  .dog-image.moss {
+    width: 300px;
+    height: 300px;
+    bottom: 25%;
+    left: -3%;
+    transform: rotate(-15deg)!important;
+  }
+  
+  .dog-image.sugar {
+    width: 320px;
+    height: 320px;
+    top: 30%;
+    left: -3%;
+    transform: rotate(15.796deg)!important;
+  }
+  
+  .dog-image.finn {
+    width: 320px;
+    height: 320px;
+    top: 30%;
+    transform: rotate(-20.365deg)!important;
+    right: -3%;
+  }
+  
+  /* Adjust for responsive layouts */
+  @media (max-width: 768px) {
+    .dog-image {
+      width: 200px !important;
+      height: 200px !important;
+    }
+    
+    .dog-image.kipp {
+      right: -10%;
+    }
+    
+    .dog-image.sugar {
+      left: -10%;
+    }
   }
   
   @media (max-width: 768px) {

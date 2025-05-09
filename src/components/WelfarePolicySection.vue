@@ -39,7 +39,7 @@
   <h2 class="main-title">Working<br>Like a <span class="highlighted-text">Dog:</span></h2>
 </div>
 <div class="welfare-stats-description">
-  As of 2022, over <span style="font-family: 'ivypresto-headline', serif; font-style: italic; color: black; font-weight: normal; font-size: 20px;">5,800</span> dogs were working for the U.S. federal government. Yet the Government Accountability Office report found major welfare gaps.
+  As of 2022, over <span style="font-family: 'ivypresto-headline', serif; font-style: italic; color: black; font-weight: normal; font-size: 20px;">5,600</span> dogs were working for the U.S. federal government. Yet the Government Accountability Office report found major welfare gaps.
 </div>
         <div class="welfare-stats-description2">
           In response, Congress passed the Working Dog Health and Welfare Act, requiring agencies to provide better veterinary care, rest, and oversight.

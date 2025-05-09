@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import * as d3 from 'd3';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -41,16 +41,34 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 // Import images directly
-import labImage from '@/assets/images/lab/lab-1.png';
-import gshepImage from '@/assets/images/gshep/gshep-1.png'; // Adjust path if needed
-import bcollieImage from '@/assets/images/bcollie/bcollie-1.png'; // Adjust path if needed
-import beagleImage from '@/assets/images/beagle/beagle-1.png'; // Adjust path if needed
+import labImage1 from '@/assets/images/lab/lab-1.png';
+import labImage2 from '@/assets/images/lab/lab-2.png';
+import labImage3 from '@/assets/images/lab/lab-3.png';
+
+import gshepImage1 from '@/assets/images/gshep/gshep-1.png';
+import gshepImage2 from '@/assets/images/gshep/gshep-2.png';
+import gshepImage3 from '@/assets/images/gshep/gshep-3.png';
+
+import bcollieImage1 from '@/assets/images/bcollie/bcollie-1.png';
+import bcollieImage2 from '@/assets/images/bcollie/bcollie-2.png';
+import bcollieImage3 from '@/assets/images/bcollie/bcollie-3.png';
+
+import beagleImage1 from '@/assets/images/beagle/beagle-1.png';
+import beagleImage2 from '@/assets/images/beagle/beagle-2.png';
+import beagleImage3 from '@/assets/images/beagle/beagle-3.png';
 import { descending } from 'd3';
 
 export default {
   name: 'BreedStrengthSection',
-  setup() {
-    // Add refs for animated elements
+  props: {
+    dogDisplayMode: {
+      type: String,
+      default: 'minimal',
+      validator: (value) => ['minimal', 'medium', 'maximum'].includes(value)
+    }
+  },
+  setup(props) {
+    const isAnimating = ref(false);
     const breedSection = ref(null);
     const dogImageElement = ref(null);
     const breedRoleLabelElement = ref(null);
@@ -64,18 +82,32 @@ export default {
     let animationsInitialized = false;
 
     // Function to get image URL - update this function
-    function getImageUrl(path) {
-      // The keys in this object must exactly match the path strings in breedData
+    function getImageUrl(imageSrcObject) {
+      // The current display mode from props
+      const mode = props.dogDisplayMode;
+      
+      // Get the path for the current mode from the image source object
+      const path = typeof imageSrcObject === 'object' ? imageSrcObject[mode] : imageSrcObject;
+      
+      // Map paths to imported images
       const images = {
-        '@/assets/images/lab/lab-1.png': labImage,
-        '@/assets/images/gshep/gshep-1.png': gshepImage,
-        '@/assets/images/bcollie/bcollie-1.png': bcollieImage,
-        '@/assets/images/beagle/beagle-1.png': beagleImage
+        '@/assets/images/lab/lab-1.png': labImage1,
+        '@/assets/images/lab/lab-2.png': labImage2,
+        '@/assets/images/lab/lab-3.png': labImage3,
+        '@/assets/images/gshep/gshep-1.png': gshepImage1,
+        '@/assets/images/gshep/gshep-2.png': gshepImage2,
+        '@/assets/images/gshep/gshep-3.png': gshepImage3,
+        '@/assets/images/bcollie/bcollie-1.png': bcollieImage1,
+        '@/assets/images/bcollie/bcollie-2.png': bcollieImage2,
+        '@/assets/images/bcollie/bcollie-3.png': bcollieImage3,
+        '@/assets/images/beagle/beagle-1.png': beagleImage1,
+        '@/assets/images/beagle/beagle-2.png': beagleImage2,
+        '@/assets/images/beagle/beagle-3.png': beagleImage3
       };
       
       // Debug which image is being requested
       console.log("Requested image path:", path);
-      console.log("Available images:", Object.keys(images));
+      console.log("Display mode:", mode);
       
       return images[path] || '';
     }
@@ -85,7 +117,11 @@ export default {
       'labrador-retriever': {
         name: 'Labrador Retriever',
         optimal: 'Service/Guide',
-        imageSrc: '@/assets/images/lab/lab-1.png',
+        imageSrc: {
+          minimal: '@/assets/images/lab/lab-1.png',
+          medium: '@/assets/images/lab/lab-2.png',
+          maximum: '@/assets/images/lab/lab-3.png'
+        },
         description: 'Highly sociable, trainable, and adaptable, labs are common for service work, especially for people with disabilities, thanks to its friendly, reliable nature and ability to adjust to their human’s daily routines',
         traits: [
           {axis: "Socialbility", value: 5, description: "Everyone is my best friend"},
@@ -99,7 +135,11 @@ export default {
       'german-shepherd': {
         name: 'German Shepherd',
         optimal: 'Police/Military',
-        imageSrc: '@/assets/images/gshep/gshep-1.png',
+        imageSrc: {
+          minimal: '@/assets/images/gshep/gshep-1.png',
+          medium: '@/assets/images/gshep/gshep-2.png',
+          maximum: '@/assets/images/gshep/gshep-3.png'
+        },
         description: 'German Shepherds are courageous, confident, and smart, excelling in police and military work.',
         traits: [
         {axis: "Socialbility", value: 3, description: "Friendly if Familiar"},
@@ -113,7 +153,11 @@ export default {
       'border-collie': {
         name: 'Border Collie',
         optimal: 'Herding',
-        imageSrc: '@/assets/images/bcollie/bcollie-1.png',
+        imageSrc: {
+          minimal: '@/assets/images/bcollie/bcollie-1.png',
+          medium: '@/assets/images/bcollie/bcollie-2.png',
+          maximum: '@/assets/images/bcollie/bcollie-3.png'
+        },
         description: 'Border Collies are energetic, intelligent, and highly trainable, making them the top choice for herding.',
         traits: [
         {axis: "Socialbility", value: 4, description: "Social Butterfly"},
@@ -128,7 +172,11 @@ export default {
       'beagle': {
         name: 'Beagle',
         optimal: 'Scent Detection',
-        imageSrc: '@/assets/images/beagle/beagle-1.png',
+        imageSrc: {
+          minimal: '@/assets/images/beagle/beagle-1.png',
+          medium: '@/assets/images/beagle/beagle-2.png',
+          maximum: '@/assets/images/beagle/beagle-3.png'
+        },
         description: 'Beagles are curious, friendly, and have an excellent sense of smell, making them perfect for scent detection.',
         traits: [
           {axis: "Socialbility", value: 3, description: "Friendly if Familiar"},
@@ -155,27 +203,22 @@ export default {
     
 
     // Function to animate the optimal role text
-    function animateOptimalRole(newOptimalRole) {
+    function animateOptimalRole(newOptimalRole, timeline) {
       const roleElement = breedNameElement.value;
       if (!roleElement) return;
       
-      // Create a GSAP timeline for the animation sequence
-      const tl = gsap.timeline();
-      
-      // First, animate the current text out
-      tl.to(roleElement, {
+      // Instead of creating a new timeline, add to the provided one
+      timeline.to(roleElement, {
         opacity: 0,
         y: -50,
         duration: 0.3,
         ease: "power2.in",
         onComplete: () => {
-          // Update the text content to the new optimal role
           roleElement.textContent = newOptimalRole;
         }
       });
       
-      // Then, animate the new text in
-      tl.fromTo(roleElement, 
+      timeline.fromTo(roleElement, 
         { opacity: 0, y: 50 },
         { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }
       );
@@ -599,11 +642,38 @@ export default {
 
     // Function to update the current breed
     function updateBreed(breedId) {
-      currentBreed.value = breedId;
-      animateOptimalRole(breedData[breedId].optimal);
-      animateBreedDescription(breedData[breedId].description);
-      animateDogImage(breedData[breedId].imageSrc); // Add this line
-      updateRadarChart(breedId);
+      // Don't update if it's already the current breed
+      if (currentBreed.value === breedId) return;
+      
+      // Don't allow another update if we're currently animating
+      if (isAnimating.value) return;
+      
+      try {
+        // Set animating state
+        isAnimating.value = true;
+        
+        // Update current breed
+        currentBreed.value = breedId;
+        
+        // Create a timeline for all animations
+        const masterTimeline = gsap.timeline({
+          onComplete: () => {
+            // Reset animation state when all animations are done
+            isAnimating.value = false;
+          }
+        });
+        
+        // Add all animations to the timeline
+        animateOptimalRole(breedData[breedId].optimal, masterTimeline);
+        animateBreedDescription(breedData[breedId].description, masterTimeline);
+        animateDogImage(breedData[breedId].imageSrc, masterTimeline);
+        
+        // Update radar chart with the new breed data
+        updateRadarChart(breedId);
+      } catch (error) {
+        console.error("Error updating breed:", error);
+        isAnimating.value = false; // Reset animation state if there's an error
+      }
     }
 
     // Add a function to set up scroll-triggered animations
@@ -639,6 +709,26 @@ export default {
       animationsInitialized = true;
     }
 
+    // Watch for changes in the dogDisplayMode prop
+    watch(() => props.dogDisplayMode, (newMode) => {
+      // Force update the image when the mode changes
+      const imageElement = dogImageElement.value?.querySelector('img');
+      if (imageElement) {
+        // Create a small animation to transition the image change
+        gsap.to(dogImageElement.value, {
+          opacity: 0,
+          duration: 0.3,
+          onComplete: () => {
+            imageElement.src = getImageUrl(breedData[currentBreed.value].imageSrc);
+            gsap.to(dogImageElement.value, {
+              opacity: 1,
+              duration: 0.3
+            });
+          }
+        });
+      }
+    }, { immediate: true });
+
     onMounted(() => {
       // Initialize the chart with the first breed
       initRadarChart();
@@ -661,6 +751,7 @@ export default {
     });
 
     return {
+      isAnimating,
       breedSection,
       filtersElement,
       radarChart,
@@ -771,7 +862,7 @@ font-weight: 400;
 }
 
 .dog-image {
-  width: 400px;
+  width: 600px;
   height: 400px;
   display: flex;
   justify-content: center;

@@ -47,8 +47,11 @@
     <DNAFactSection v-if="timelineUnlocked" ref="dnaFactSection" />
 
     <!-- Breed Strength Section - only render when timeline is unlocked -->
-    <BreedStrengthSection v-if="timelineUnlocked" ref="breedStrengthSection" />
-    
+    <BreedStrengthSection 
+  v-if="timelineUnlocked" 
+  ref="breedStrengthSection" 
+  :dogDisplayMode="dogDisplayMode" 
+/>    
     <!-- Matrix Section - only render when timeline is unlocked -->
     <MatrixSection v-if="timelineUnlocked" ref="matrixSection" />
     
@@ -59,7 +62,7 @@
     <TechVsDogSection v-if="timelineUnlocked" ref="techVsDogSection" />
     
     <!-- NEW: Wildlife Detection Section - only render when timeline is unlocked -->
-    <WildlifeDetectionSection v-if="timelineUnlocked" ref="wildlifeDetectionSection" />
+    <WildlifeDetectionSection v-if="timelineUnlocked" ref="wildlifeDetectionSection":dogDisplayMode="dogDisplayMode" />
 
     <WelfarePolicySection v-if="timelineUnlocked" ref="welfarePolicySection" />
     
