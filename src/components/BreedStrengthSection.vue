@@ -902,7 +902,7 @@ font-weight: 400;
 }
 .breed-description {
   color: #000;
-  font-family: "Neue Haas Grotesk Display Pro";
+  font-family: neue-haas-grotesk-display, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
